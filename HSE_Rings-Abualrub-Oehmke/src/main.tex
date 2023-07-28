@@ -1,0 +1,220 @@
+\documentclass[10pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian, english]{babel}
+
+\babelfont{rm}{Droid Serif}
+\babelfont{sf}{Droid Sans}
+
+\usepackage{xeCJK}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{tikz-cd}
+\usepackage{utopia} %font utopia imported
+\usetheme{Madrid}
+\usecolortheme{dolphin}
+
+\newcommand{\define}[1]{{\textit{#1}}}
+
+% set colors
+\definecolor{myNewColorA}{RGB}{25,25,112}
+\definecolor{myNewColorB}{RGB}{25,25,112}
+\definecolor{myNewColorC}{RGB}{25,25,112}
+\setbeamercolor*{palette primary}{bg=myNewColorC}
+\setbeamercolor*{palette secondary}{bg=myNewColorB, fg = white}
+\setbeamercolor*{palette tertiary}{bg=myNewColorA, fg = white}
+\setbeamercolor*{titlelike}{fg=myNewColorA}
+\setbeamercolor*{title}{bg=myNewColorA, fg = white}
+\setbeamercolor*{item}{fg=myNewColorA}
+\setbeamercolor*{caption name}{fg=myNewColorA}
+\usefonttheme{professionalfonts}
+\usepackage{natbib}
+\usepackage{hyperref}
+%------------------------------------------------------------
+\setbeamerfont{title}{size=\large}
+\setbeamerfont{subtitle}{size=\small}
+\setbeamerfont{author}{size=\small}
+\setbeamerfont{date}{size=\small}
+\setbeamerfont{institute}{size=\small}
+
+%------------------------------------------------------------
+%This block of commands puts the table of contents at the 
+%beginning of each section and highlights the current section:
+%\AtBeginSection[]
+%{
+%  \begin{frame}
+%    \frametitle{Contents}
+%    \tableofcontents[currentsection]
+%  \end{frame}
+%}
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+%------------------------------------------------------------
+
+\begin{document}
+
+%------------------------------------------------------------
+\section{Идеалы колец $\mathbb{Z}_4[x]/(x^n-1)$ для $n = 2^e$}
+
+\begin{frame}{На основе статьи}
+
+\begin{block}{Cyclic codes of length $2^e$ over $\mathbb{Z}_4$}
+  \url{https://core.ac.uk/download/pdf/82251738.pdf}\\
+  \vspace{0.2cm}
+  Авторы: Taher Abualrub, Robert Oehmke
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Идеалы в кольце $\mathbb{Z}_2[x]/(x^n-1)$}
+
+ Главные, порождены делителями $x^n-1$.\\
+ Разложим $x^n-1$: $x^{2^e}-1 = (x^{2^{e-1}}-1)^2 = (x-1)^n$.\\
+ \pause
+ \vspace{0.4cm}
+ НОД всех делителей --- $x-1$. На другом языке сумма всех идеалов равна $(x-1)$.\\
+ Cледовательно, $(x-1)$ --- единственный максимальный идеал.\\
+ Он нильпотентен степени $n$. Следовательно, это кольцо Галуа.
+
+\end{frame}
+
+\begin{frame}{Идеалы при сюръективном отображении}
+
+ Пусть $\phi : A \to B$ --- сюръективное отображение.\\
+ По теореме об изоморфизме $A/\ker{\phi} \cong B$\\
+ \vspace{0,4cm}
+ Следовательно, (максимальные) идеалы $A$, содержащие $\ker{\phi}$, биективны (максимальным) идеалам $B$.
+
+\end{frame}
+
+\begin{frame}{Редукция по модулю $p$}
+
+\begin{enumerate}
+ \item $\phi : R = \mathbb{Z}_4[x]/(x^n-1) \to \mathbb{Z}_2[x]/(x^n-1)$.\\
+ \item $\ker{\phi} = (2)$\\
+ \item $\phi^{-1}((x-1)) = (2) + (x-1) = (2, x-1)$\\
+ \item Это единственный максимальный идеал, нильпотентный.\\
+ \item Является ли он главным?
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Характеризация пересечения максимальных идеалов}
+
+  \begin{block}{Утверждение (курс коммутативной алгебры)}
+      Элемент $x$ принадлежит пересечению $J$ максимальных идеалов коммутативного кольца $A$ тогда и только тогда, когда $1-xy$ обратим для любого $y \in A$
+  \end{block}
+   \pause
+   Если элемент $a = 1 - xy_0$ необратим, он содержится в максимальном идеале $m$. По предположению $x \in m$. Тогда $xy_0 \in m$ и $1 \in m$. Противоречие, доказали, что все элементы $J$ удовлетворяют этому свойству.\\
+   \pause
+   \vspace{0.4cm}
+   В другую сторону. Пусть $m$ --- какой-то максимальный идеал и $x \not\in m$. Тогда $(x) + m = A$, в частности для каких-то $w \in m$ и $y_0$ $w + xy_0 = 1$. Следовательно, $1 - xy_0 \in m$, а значит, необратим.
+
+   
+\end{frame}
+
+\begin{frame}{Максимальный идеал в локальном кольце}
+
+\begin{block}{Утверждение}
+  Пусть $(A, m)$ --- локальное кольцо и $m = (a)$. Пусть $m = (a_1,\ldots,a_n)$. Тогда $m=(a_i)$ для какого-то $i \in {1,\ldots,n}$.
+\end{block}
+\pause
+ Для $n=1$ утверждение тавтологично. Пусть оно верно для $n=k$, рассмотрим $k+1$.\\
+ \vspace{0.3cm}
+ Верно, что $a_1 = ra$ (1). Если $r$ обратим, $m = (a_1)$. Иначе $r = \sum_1^{k+1}{\alpha_ia_i}$.\\
+ Подставим в (1): $a_1(1-\alpha_1a) = \sum_2^{k+1}{a\alpha_ia_i}$. Множитель при $a_1$ обратим, поскольку максимальный идеал единственен, значит, $m = (a_2,\ldots,a_{k+1})$\\
+ \pause
+ \vspace{0.5cm}
+ Заключаем, что идеал $(2,x-1) \subset R$ не является главным.
+\end{frame}
+
+\begin{frame}{Классификация идеалов.}
+  Мы зафиксировали, что $R$ не является кольцом главных идеалов.\\
+  \vspace{0.4cm}
+  Пусть $I$ --- идеал и $g \in I$ --- элемент минимальной степени.\\
+  \pause
+  \vspace{0.4cm}
+  Пусть $g$ --- унитарный многочлен. Тогда на него можно делить с остатком в $\mathbb{Z}_4[x]$, получая остаток меньшей степени.\\
+  \vspace{0.4cm}
+  Поделив все элементы $I$, представленные собой в $Z_4[x]$, получили, что $I = (g)$.
+  Нулевой элемент можно представить как $x^n-1$, значит, $g \;|\; x^n-1$.\\
+  \vspace{0.6cm}
+  Это рассуждение дословно повторяет общее рассуждение, классифицирующее идеалы $\mathbb{Z}_2[x]/(x^n-1)$, на которое мы ссылались в начале.
+  
+\end{frame}
+
+\begin{frame}{Отступление: разложение $x^n-1$ на множители}
+    $x^4-1 = (x^2+1)(x-1)(x+1) = (x^2+2x-1)(x-1)(x-1) = (x^2+2x-1)(x+1)(x+1)$
+\end{frame}
+
+\begin{frame}{Классификация идеалов}
+  В $R$ есть неглавные идеалы. Как минимум их элементы минимальной степени не унитарны.\\
+  \vspace{0.4cm}
+  Пусть $g$ не унитарен. То есть старший коэффициент -- двойка.\\
+  Если $2g \neq 0$, степень $2g$ меньше степени $g$, значит, $g = 2q$ для какого-то многочлена $q$ с единичными коэффициентами.  
+\end{frame}
+
+
+\begin{frame}{Классификация идеалов}
+  Пусть в $I$ нет унитарных многочленов.\\
+  \vspace{0.3cm}
+  Рассмотрим множество элементов $I$, которые не делятся на $g$. Если оно не пусто, в нём есть элемент $r$ минимальной степени $u$. Отметим, что $u \geq s  = \operatorname{deg}(g)$. Рассмотрим $w = r - 2qx^{u-s}$.\\
+  \vspace{0.3cm}
+  Он имеет степень, меньшую $r$, следовательно, делится на $2q$ (или нулевой, что подходит). Тогда и $r$ делится на $2q$. Противоречие.\\
+  \vspace{0.5cm}
+  Следовательно, в этом случае $I = (2q)$.\\
+  Мы также получили утверждение, что все неглавные идеалы содержат унитарный многочлен.
+\end{frame}
+
+\begin{frame}{Классификация идеалов}
+  Пусть $I$ содержит унитарный многочлен.\\
+  \vspace{0.4cm}
+  Множество унитарных многочленов содержит элемент $f$ минимальной степени $t$. Множество многочленов степени меньше $t$ попадает в условия предыдущего случая и все его элементы делятся на $2q$.\\
+  \vspace{0.3cm}
+  \pause
+  Пусть $a \in I$ --- многочлен степени не меньше $t$.\\
+  Поделим его с остатком на $f$: $a = a'f + r = af + 2qr'$.\\
+  \vspace{0.2cm}
+  Таким образом $I = (f) +  (2q) = (f,2q)$
+\end{frame}
+
+\begin{frame}{Классификация идеалов}
+  \begin{block}{Теорема}
+    Итого имеем идеалы следующих видов:\\
+    \begin{enumerate}
+      \item $(g)$, где $g$ --- делитель $x^n-1$
+      \item $(2q)$, где $q$ имеет единичные коэффициенты
+      \item $(f,2q)$, где $f$ унитарный.
+    \end{enumerate}
+  \end{block}
+  \vspace{0.4cm}
+
+  Условие на $f = f_1 + 2f_2$ можно усилить. Вычитая множители вида $2qx^k$, можно добиться того, чтобы степень $f_2$ была меньше $s$.\\
+  \vspace{0.2cm}
+  Образ идеала при сюръективном отображении --- идеал, а образующая отображается в образующую. Отсюда можно заключить также, что $\phi(f_1) \;|\; x^n-1$, $\phi(q) \;|\; x^n - 1$ и в силу неравенства на степени $\phi(q) \;|\; \phi(f_1)$.
+\end{frame}
+
+\begin{frame}{Классификация идеалов}
+  Чего заключить нельзя:\\
+  \vspace{0.4cm}
+  Нельзя пользоваться подъёмом Гензеля и поднимать им разложение $x^n - 1$. К тому же их несколько.\\
+  \vspace{0.4cm}
+  Но даже если бы было можно, это бы не помогло описать все идеалы.\\
+  \begin{example}
+    Главный идеал $(x^3+x^2-x-1) \subset \mathbb{Z}_4[x]/(x^4-1)$ не порождается делителем $x^4 - 1$.
+  \end{example}
+    Достаточно поделить: $x^4 - 1 = (x-1)(x^3 + x^2 - x - 1) + 2(x^2 + 1)$.
+\end{frame}
+
+\end{document}
+
+
+
