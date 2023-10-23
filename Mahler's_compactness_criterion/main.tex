@@ -1,0 +1,185 @@
+\documentclass[10pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian, english]{babel}
+
+\babelfont{rm}{Droid Serif}
+\babelfont{sf}{Droid Sans}
+
+\usepackage{xeCJK}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{mathtools}
+\usepackage{tikz-cd}
+\usepackage{utopia} %font utopia imported
+\usetheme{Madrid}
+\usecolortheme{dolphin}
+
+\newcommand{\define}[1]{{\textit{#1}}}
+
+% set colors
+\definecolor{myNewColorA}{RGB}{25,25,112}
+\definecolor{myNewColorB}{RGB}{25,25,112}
+\definecolor{myNewColorC}{RGB}{25,25,112}
+\setbeamercolor*{palette primary}{bg=myNewColorC}
+\setbeamercolor*{palette secondary}{bg=myNewColorB, fg = white}
+\setbeamercolor*{palette tertiary}{bg=myNewColorA, fg = white}
+\setbeamercolor*{titlelike}{fg=myNewColorA}
+\setbeamercolor*{title}{bg=myNewColorA, fg = white}
+\setbeamercolor*{item}{fg=myNewColorA}
+\setbeamercolor*{caption name}{fg=myNewColorA}
+\usefonttheme{professionalfonts}
+\usepackage{natbib}
+\usepackage{hyperref}
+%------------------------------------------------------------
+\setbeamerfont{title}{size=\large}
+\setbeamerfont{subtitle}{size=\small}
+\setbeamerfont{author}{size=\small}
+\setbeamerfont{date}{size=\small}
+\setbeamerfont{institute}{size=\small}
+
+%------------------------------------------------------------
+%This block of commands puts the table of contents at the 
+%beginning of each section and highlights the current section:
+%\AtBeginSection[]
+%{
+%  \begin{frame}
+%    \frametitle{Contents}
+%    \tableofcontents[currentsection]
+%  \end{frame}
+%}
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+%------------------------------------------------------------
+
+\begin{document}
+
+%------------------------------------------------------------
+\section{Теорема Малера о компактности}
+
+\begin{frame}{Определитель решётки}
+
+\begin{block}{Решётка}
+  Множество $\Lambda$ линейных комбинаций набора из $n$ линейно-независимых векторов $b$ (базиса решётки) $\mathbb{R}^n$ с целыми коэффициентами.
+\end{block}
+
+\begin{exampleblock}{Целочисленная решётка $Y$}
+  Базис -- базис $e$ единичных векторов в $\mathbb{R}^n$.
+\end{exampleblock}
+
+\begin{alertblock}{Определитель решётки}
+  Пусть $\Lambda$ --- решётка с базисом $b$. $d(\Lambda) = \left|det(B)\right|$, где столбцы $B$ --- векторы $b$ в базисе $e$. Таким образом, $\Lambda = BY$.
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}{Определелитель решётки: корректность}
+
+\begin{block}{Определитель решётки не зависит от выбора базиса}
+  Пусть $a$ и $b$ --- базисы $\Lambda$. Тогда $\Lambda = AY = BY$, $Y = A^{-1}BY$, $A^{-1}B$ --- матрица перехода из базиса $A$ в базис $B$. Она обратима и целочисленна, так как отображает векторы с целыми координатами в $e$ в векторы с целыми координатами в $e$, значит, её определитель обратим и цел, значит, $\left|det(A^{-1}B)\right| = 1$.
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Подготовительные утверждения}
+
+\begin{block}{Утверждение 1}
+  Пусть $\Lambda$ --- решётка. Тогда существует набор векторов $a^1, \ldots, a^n$ в $\Lambda$ таких, что $a^1$ --- вектор наименьшей ненулевой длины, а начиная с $i=2$ $a^i \in Dist_i \cap K_i$, где $Dist_i$ --- множество векторов решётки на минимальном ненулевом расстоянии от $L_i = <a^1,\ldots,a^{i-1}>$, а $K_i$ --- множество векторов, проекции которых на $L_i$ попадают в множество $P_i$ линейных комбинаций $a^1,\ldots,a^{i-1}$ с коэффициентами $\leq \frac{1}{2}$ по модулю.
+\end{block}
+
+Если $n = 1$, утверждение верно. Пусть оно верно для $n = i-1$.\\
+Множество $P_i$ содержит по крайней мере нулевой вектор, а множество $Dist_i$ не пусто. Выберем произвольный вектор из $Dist_i$ и вычтем из него вектор решётки, ближайший к его проекции на $L_i$. Получим вектор, проецирующийся в вектор, достаточно близко от нулевого и лежащий на том же расстоянии от $L_i$, его можно взять в качестве $a^i$ и провести индуктивный переход.
+
+\end{frame}
+
+\begin{frame}{Подготовительные утверждения}
+
+\begin{block}{Утверждение 2}
+  $a = a^1,\ldots,a^{n}$ ---  базис $\Lambda$.
+\end{block}
+
+$a$ --- базис в $\mathbb{R}^n$. Пусть $x' \in \Lambda$ и $x' = \sum_i{\alpha_ia^i}$, где $\alpha_i \in \mathbb{R}^n = \mathbb{Z}^n$. Сдвинем этот вектор по решётке в вектор $x'$ так, чтобы все коэффициенты стали меньше единицы. Тогда $dist(x, L_{n}) = \alpha_i \cdot dist(a^n,L_{n}) = 0$ по конструкции $a$, то есть $\alpha_n=0$. Аналогично $\alpha_i = 0$ для любого $i$. Следовательно, $a$ --- базис решётки.
+
+\end{frame}
+
+\begin{frame}{Подготовительные утверждения}
+
+\begin{block}{Лемма}
+  $\frac{\prod_{i=1}^n{\left|a^i\right|}}{d(\Lambda)} \leq C$, где $C$ зависит только от $n$.
+\end{block}
+
+\pause
+
+Пусть $d_1 = \left|a^1\right|$, $d_i = dist(a^i,L_i)$. Тогда $d(\Lambda) = \prod_i{d_i}$ как объём параллелотопа, натянутого на $a$.\\
+
+\pause
+
+\vspace{0.2cm}
+По построению $a$ $\left|a^i\right| \leq \frac{1}{2}\sum_{k=1}^{i-1}\left|a^k\right| + d_i$ (1).\\
+
+\pause
+
+\vspace{0.2cm}
+Для любого вектора $p \in P_{i+1}$ $dist(p, L_i) \leq \frac{d_i}{2}$. Тогда $dist(a^{i+1},L_i) \leq \frac{d_i}{2} + d_{i+1}$, но $dist(a^{i+1},L_i) \geq d_i$. Отсюда $2d_{i+1} \geq d_i$ (2).
+
+\pause
+
+\vspace{0.2cm}
+\begin{block}{Утверждение 3}
+  $\left|a^i\right| \leq \frac{1}{2}\sum_{k=1}^{i-1}\left|a^k\right| + d_i \leq \xi_id_i$, где $\xi_1 = 1$, $\xi_i = 3\xi_{i-1} -1$.
+\end{block}
+
+Это верно для $i = 1$. Пусть теперь это верно для всех индексов до $i$ включительно. Тогда  $\frac{1}{2}\sum_{k=1}^{i}\left|a^k\right| + d_{i+1} \leq_{(1)} \frac{3}{2}(\frac{1}{2}\sum_{k=1}^{i-1}\left|a^k\right| + d_{i}) + d_{i+1} - d_i \leq (\frac{3}{2}\xi_1 - 1)d_i + d_{i+1} \leq_{(2)} (3\xi_i - 1)d_{i+1} = \xi_{i+1}d_{i+1}$. 
+
+\end{frame}
+
+\begin{frame}{Множества решёток. Определения}
+
+\begin{block}{Ограниченное множество решёток}
+    Множество $\mathcal{L}$ решёток называется ограниченным, если существует радиус $\rho > 0$ такой, что внутренность шара радиуса $\rho$ пересекается с каждой $\Lambda \in \mathcal{L}$ только по нулевому вектору, и число $\sigma > 0$ такое, что $\forall \Lambda \in \mathcal{L}\; d(\Lambda) \leq \sigma$.
+\end{block}
+
+\begin{block}{Сходящаяся последовательность}
+    Пусть $\{\Lambda_1,\Lambda_2,\ldots\}$ --- последовательность решёток. Она сходится к решётке $\Lambda$, если для любого базиса $a$ с матрицей столбцов $A$ существует набор базисов $a_i$ $\Lambda_i$, матрицы которых сходятся к $A$ по норме максимума модуля.
+\end{block}
+
+\begin{block}{Сходимости в каком-то базисе достаточно}
+    $A_r \rightarrow A \Rightarrow A_rU \rightarrow AU$, где $U$ --- матрица замены базиса.
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Теорема Малера о компактности}
+
+\begin{block}{Ограниченная (с константами $\rho$, $\sigma$) последовательность решёток имеет сходящуюся подпоследовательность}
+    Применим лемму для каждой решётки $\Lambda_r$ в последовательности: $\rho^n \leq \prod_{i=1}^n{\left|a_r^i\right|} \leq Cd(\Lambda) \leq С\sigma$, где $a_r$ --- базис $\Lambda_r$. В частности, $\left|a_r^i\right| \leq C\sigma\rho^{-n + 1}$ для любого вектора $a_r^i$ базиса $a_r$.\\
+\vspace{0.4cm}
+    Следовательно, последовательности векторов $a_r^i$ для всех $i$ ограничены и имеют сходящиеся (по максимуму модуля координат) подпоследовательности, можно выбрать набор индексов $r_k$ такой, что подпоследовательность будет сходиться для всех $i$. Тогда $\{A_{r_k}\}$ cходится.
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Следствие. Критерий компактности Малера}
+
+\begin{block}{Пространство унимодулярных решёток}
+    $X_n$ --- пространство решёток с определителем 1.\\
+    $X_n \cong SL(n,\mathbb{R})/SL(n,\mathbb{Z})$
+\end{block}
+
+\begin{block}{Критерий компактности}
+    Множество решёток $\{\Lambda_r \in X_n\}$ не содержит сходящейся подпоследовательности тогда и только тогда, когда есть последовательность векторов $\{v_r\}$ этих решёток такая, что $\left|v_r\right| \rightarrow 0$.
+\end{block}
+
+В качестве примера, в котором теорема встречается в таком виде, \href{https://www.claymath.org/library/academy/03LectureNotes/elon.pdf}{лекция Линденштраусса ссылкой}
+
+\end{frame}
+
+\end{document}
